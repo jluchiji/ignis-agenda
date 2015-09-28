@@ -1,0 +1,44 @@
+{
+  "name": "ignis-agenda",
+  "version": "0.0.0",
+  "description": "Agenda job queue for Ignis.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "gulp coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jluchiji/ignis-agenda.git"
+  },
+  "keywords": [
+    "agenda",
+    "job",
+    "queue",
+    "ignisjs"
+  ],
+  "author": "Denis Luchkin-Zhou <denis@ricepo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jluchiji/ignis-agenda/issues"
+  },
+  "homepage": "https://github.com/jluchiji/ignis-agenda#readme",
+  "devDependencies": {
+    "babel-eslint": "^4.1.3",
+    "del": "^2.0.2",
+    "eslint": "^1.5.1",
+    "eslint-config-airbnb": "^0.1.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-changed": "^1.3.0",
+    "gulp-eslint": "^1.0.0",
+    "gulp-istanbul": "^0.10.1",
+    "gulp-istanbul-enforcer": "^1.0.3",
+    "gulp-mocha": "^2.1.3",
+    "gulp-notify": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "dependencies": {
+    "agenda": "^0.6.28",
+    "ignis-util": "^0.1.3"
+  }
+}
