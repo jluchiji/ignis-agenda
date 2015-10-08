@@ -34,5 +34,4 @@ node_modules
 coverage-report.html
 
 # Build output files
-lib
 build
