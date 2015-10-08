@@ -6,24 +6,47 @@
  */
 
 import Agenda      from 'agenda';
-import DefPromised from './promised';
+import Define      from './define';
 
+
+/*!
+ * Setup agenda to play well with Ignis
+ */
+export function setup(ignis) {
+  const agenda = ignis.agenda;
+
+  /* agenda.define() on steroids */
+  agenda._define = agenda.define;
+  agenda.define = Define.bind(ignis);
+
+  /* Emit agenda events via Ignis dispatcher */
+  agenda.on('fail', job => ignis.emit('agenda.fail', job));
+  agenda.on('start', job => ignis.emit('agenda.start', job));
+  agenda.on('success', job => ignis.emit('agenda.success', job));
+  agenda.on('complete', job => ignis.emit('agenda.complete', job));
+
+  /* Watch for process termination and gracefully shutdown */
+  const stop = function() {
+    agenda.stop(
+      /* istanbul ignore next */
+      () => process.exit()
+    );
+  };
+  process.on('SIGTERM',           stop);
+  process.on('SIGINT',            stop);
+  process.on('uncaughtException', stop);
+
+}
+
+
+/*!
+ * Ignis extension function.
+ */
 export default function IgnisAgenda(Ignis, key = 'agenda') {
+
   Ignis.init(function() {
-
-    /* Retrieve configuration and setup the client */
-    const agenda = this.agenda = new Agenda(this.config(key));
-
-    /* Route agenda events through Ignis dispatcher */
-    agenda.on('success', job => this.emit('agenda.success', job));
-    agenda.on('fail',    job => this.emit('agenda.fail',    job));
-
-    /* Gracefully shutdown */
-    const stop = function() { agenda.stop(() => process.exit(0)); };
-    process.on('SIGTERM',           stop);
-    process.on('SIGINT',            stop);
-    process.on('uncaughtException', stop);
-
-    DefPromised(this);
+    this.agenda = new Agenda(this.config(key));
+    setup(this);
   });
+
 }

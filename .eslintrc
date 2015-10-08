@@ -5,6 +5,7 @@
   "rules": {
     "new-cap": 0,
     "no-undef": 2,
+    "id-length": 0,
     "func-names": 0,
     "no-console": 1,
     "key-spacing": 0,
