@@ -42,11 +42,7 @@ export function setup(ignis) {
 /*!
  * Ignis extension function.
  */
-export default function IgnisAgenda(Ignis, key = 'agenda') {
-
-  Ignis.init(function() {
-    this.agenda = new Agenda(this.config(key));
-    setup(this);
-  });
-
+export default function IgnisAgenda(ignis, key = 'agenda') {
+  ignis.agenda = new Agenda(ignis.config(key));
+  setup(ignis);
 }
